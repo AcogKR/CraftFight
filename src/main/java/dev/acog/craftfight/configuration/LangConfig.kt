@@ -1,4 +1,8 @@
 package dev.acog.craftfight.configuration
 
-class LangConfig {
-}
+import lombok.Builder
+
+@Builder
+class LangConfig(
+    val test: String = ""
+)

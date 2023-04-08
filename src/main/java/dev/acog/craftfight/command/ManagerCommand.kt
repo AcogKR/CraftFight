@@ -22,23 +22,28 @@ class ManagerCommand(
     val userService: UserService
 ) {
 
-    @CommandHandler(name = ["CraftFight"])
+    @CommandHandler(name = ["대전"])
     fun execute(invocation: CommandInvocation) {
-        runCatching {
+        try {
             val player: Player =
                 if (invocation.sender is Player) invocation.sender as Player
                 else stop("해당 명령어는 플레이어만 사용할수 있습니다.")
-            val command = invocation.args.getOrStop(0, "/CraftFight help")
 
-            when (command) {
+            when (invocation.args.getOrStop(0, "/CraftFight help")) {
                 "test" -> {
-
+                    player.sendMessage("Test")
                 }
             }
-        }.recoverCatching { exception ->
-            when (exception) {
-                is CommandException -> invocation.sender.sendMessage(exception.message ?: "throw Exception")
-            }
+        } catch (exception: CommandException) {
+            invocation.sender.sendMessage(exception.message ?: "throw Exception")
         }
     }
 }
+
+/*
+
+/대전 전적 <Player?>
+/대전 랭크전
+/대전 방 생성
+/대전
+ */
