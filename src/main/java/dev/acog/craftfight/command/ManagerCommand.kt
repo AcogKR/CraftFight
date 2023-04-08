@@ -38,8 +38,13 @@ class ManagerCommand(
             invocation.sender.sendMessage(exception.message ?: "throw Exception")
         }
     }
+
+    private fun areaSetting()
 }
 
+/*
+관리
+ */
 /*
 
 /대전 전적 <Player?>

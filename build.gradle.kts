@@ -17,10 +17,10 @@ repositories {
 
 dependencies {
     compileOnly(paper("1.19.3"))
-    implementation("io.typecraft:bukkit-object:0.3.0")
     implementation("io.typecraft:bukkit-view-core:5.1.2")
     implementation("io.typecraft:command-bukkit:0.8.0")
     implementation("io.heartpattern.springfox:springfox-starter:0.1.15")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.0")
 //    compileOnly("me.filoghost.holographicdisplays:holographicdisplays-api:3.0.0") 마지막에 추가
 
     implementation("org.projectlombok:lombok:1.18.26")

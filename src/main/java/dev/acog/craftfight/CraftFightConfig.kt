@@ -1,12 +1,13 @@
 package dev.acog.craftfight
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import dev.acog.craftfight.configuration.ArenaConfig
 import dev.acog.craftfight.configuration.LangConfig
 import dev.acog.craftfight.configuration.PluginConfig
-import io.typecraft.bukkit.`object`.BukkitObjectMapper
 import jakarta.annotation.PostConstruct
 import jakarta.annotation.PreDestroy
-import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -26,20 +27,21 @@ open class CraftFightConfig(
     @get:Bean
     open var arena: ArenaConfig = ArenaConfig()
 
-    private val mapper: BukkitObjectMapper = BukkitObjectMapper()
-
     @PostConstruct
     fun start() {
-        config = mapper.decode(YamlConfiguration.loadConfiguration(getConfigFile()).getValues(false), PluginConfig::class.java).orThrow
-        lang = mapper.decode(YamlConfiguration.loadConfiguration(getLangFile()).getValues(false), LangConfig::class.java).orThrow
-        arena = mapper.decode(YamlConfiguration.loadConfiguration(getArenaFile()).getValues(false), ArenaConfig::class.java).orThrow
+        val mapper = ObjectMapper(YAMLFactory())
+        //config = mapper.readValue(getConfigFile(), PluginConfig::class.java)
+        //lang = mapper.readValue(getLangFile(), LangConfig::class.java)
+        //arena = mapper.readValue(getArenaFile(), ArenaConfig::class.java)
     }
 
     @PreDestroy
     fun stop() {
-        YamlConfiguration().apply { mapper.encode(config).getOrElse(mapOf()).forEach { set(it.key, it.value) } }.save(getConfigFile())
-        YamlConfiguration().apply { mapper.encode(lang).getOrElse(mapOf()).forEach { set(it.key, it.value) } }.save(getLangFile())
-        YamlConfiguration().apply { mapper.encode(arena).getOrElse(mapOf()).forEach{ set(it.key, it.value)} }.save(getArenaFile())
+        ObjectMapper(YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)).run {
+            writeValue(getConfigFile(), config)
+            writeValue(getLangFile(), lang)
+            writeValue(getArenaFile(), arena)
+        }
     }
 
     private fun getConfigFile(): File = File(plugin.dataFolder, "config.yml")
