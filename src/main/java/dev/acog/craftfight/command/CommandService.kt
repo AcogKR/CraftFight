@@ -43,10 +43,12 @@ class CommandService(
                 pair("목록", Command.argument(ManagerCommand::AreaList)),
                 pair("관리", Command.mapping(
                     pair("위치1", Command.argument(ManagerCommand::AreaSetFirstLocation, areaArg)),
-                    pair("위치2", Command.argument(ManagerCommand::AreaSetSecondLocation, areaArg))
-                ))
+                    pair("위치2", Command.argument(ManagerCommand::AreaSetSecondLocation, areaArg)),
+                    pair("관전", Command.argument(ManagerCommand::AreaSetSpectatorLocation, areaArg))
+                ).withFallback(Command.argument(ManagerCommand::AreaSettingView, areaArg)))
             )),
             pair("유저", Command.mapping(
+                pair("", )
             )),
             pair("시스템", Command.mapping(
                 pair("랭크표", Command.mapping(

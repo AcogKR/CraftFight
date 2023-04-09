@@ -1,13 +1,8 @@
 package dev.acog.craftfight.command
 
 import dev.acog.craftfight.domain.Area
-import io.typecraft.command.Command
-import io.typecraft.command.Command.pair
-import io.typecraft.command.StandardArguments.strArg
-import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.plugin.java.JavaPlugin
-import org.springframework.beans.factory.annotation.Autowired
 
 interface ManagerCommand {
 
@@ -51,4 +46,25 @@ interface ManagerCommand {
         }
 
     }
+
+    class AreaSetSpectatorLocation(
+        private val area: Area
+    ) : ManagerCommand {
+
+        override fun executor(player: Player, plugin: JavaPlugin) {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+    class AreaSettingView(
+        private val area: Area
+    ) : ManagerCommand {
+
+        override fun executor(player: Player, plugin: JavaPlugin) {
+            TODO("Not yet implemented")
+        }
+
+    }
+
 }
