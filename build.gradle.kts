@@ -41,4 +41,8 @@ java {
 
 spigot {
     main = "dev.acog.craftfight.CraftFight"
+
+    commands {
+
+    }
 }
