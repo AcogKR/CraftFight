@@ -1,7 +1,5 @@
 package dev.acog.craftfight.command
 
-import dev.acog.craftfight.configuration.LangConfig
-import dev.acog.craftfight.configuration.PluginConfig
 import dev.acog.craftfight.library.CommandException
 import dev.acog.craftfight.library.getOrStop
 import dev.acog.craftfight.library.stop
@@ -14,10 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.springframework.stereotype.Component
 
 @Component
-class ManagerCommand(
+class ArenaCommand(
     val plugin: JavaPlugin,
-    val config: PluginConfig,
-    val lang: LangConfig,
     val areaService: AreaService,
     val userService: UserService
 ) {
@@ -29,9 +25,9 @@ class ManagerCommand(
                 if (invocation.sender is Player) invocation.sender as Player
                 else stop("해당 명령어는 플레이어만 사용할수 있습니다.")
 
-            when (invocation.args.getOrStop(0, "/CraftFight help")) {
-                "test" -> {
-                    player.sendMessage("Test")
+            when (invocation.args.getOrStop(0, "/대전 도움말")) {
+                "도움말" -> {
+
                 }
             }
         } catch (exception: CommandException) {
@@ -39,16 +35,4 @@ class ManagerCommand(
         }
     }
 
-    private fun areaSetting()
 }
-
-/*
-관리
- */
-/*
-
-/대전 전적 <Player?>
-/대전 랭크전
-/대전 방 생성
-/대전
- */
